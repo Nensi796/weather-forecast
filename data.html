@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Weather Data Services | Visual Crossing</title>
+	<meta name="description" content="Historical weather data &amp; weather forecast data for download, Weather API query and import into CSV, Excel, Power BI business intelligence &amp; data science.">
+	<link rel="canonical" href="https://www.visualcrossing.com/weather/weather-data-services" />
+	<link rel="shortcut icon" href="./weatherdataservices/images/WeatherWidget-24.png"/>
+	
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+	<link rel="stylesheet" href="./apps/common/common.css?v=5.57">
+	<link rel="stylesheet" href="./apps/common/commoncomponents.css?v=5.57">
+	<link rel="stylesheet" href="./weatherdataservices/weatherdataservices.css?v=5.57">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.25.3/moment.min.js"></script>
+	<script src="https://js.stripe.com/v3/"></script>
+	<script src="https://unpkg.com/vue-multiselect@2.1.0"></script>
+	<link rel="stylesheet" href="https://unpkg.com/vue-multiselect@2.1.0/dist/vue-multiselect.min.css">
+	<script type="text/javascript" src="//unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
+	<script src="./apps/lib/jquery-3.4.1.js"  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="  crossorigin="anonymous"></script>
+	<script src="./apps/lib/vue.js"></script>
+	<script src="./apps/lib/vuex.js"></script>
+	<script src="./apps/lib/vue-router.js"></script>
+	<script src="./apps/lib/vuejs-datepicker.min.js"></script>
+	<script src="./apps/lib/d3.v5.js"></script>	
+	<script src="./apps/lib/jquery.csv.min.js"></script>
+	<script src="./apps/lib/math.min.js"></script>
+	<script src="./apps/lib/vue-color.min.js"></script>
+	<script src="./apps/lib/sanitize-html.min.js"></script>
+	<script src="./apps/lib/lz-string-1.3.3.js"></script>
+	<script src="./apps/common/vcutils.js?v=5.57" type="text/javascript"></script>
+	<script src="./apps/common/conversions.js?v=5.57" type="text/javascript"></script>
+	<script src="./apps/common/commonobjects.js?v=5.57" type="text/javascript"></script>
+	<script src="./apps/common/commonlib.js?v=5.57" type="text/javascript"></script>
+	<script src="./apps/common/commoncomponents.js?v=5.57" type="text/javascript"></script>
+	<script src="./apps/common/vccontroller.js?v=5.57" type="text/javascript"></script>
+	<script src="./weatherdataservices/weatherdataservicescomponents.js?v=5.57" type="text/javascript"></script>
+	<script src="./weatherdataservices/timelinecomponents.js?v=5.57" type="text/javascript"></script>
+		<script src="https://cdn.jsdelivr.net/npm/vue-json-pretty@1.7.1/lib/vue-json-pretty.min.js"></script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vue-json-pretty@1.7.1/lib/styles.css">
+	
+	
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-34252255-1"></script>
+	
+	<script async src="https://cdn.stat-rock.com/player.js"></script> 
+	
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+
+	  gtag('config', 'UA-34252255-1');
+	  gtag('config', 'AW-1045373784');  
+	</script> 
+	
+	<!--<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>-->
+	<!-- Hotjar Tracking Code for www.visualcrossing.com -->
+	<!--
+<script>
+    (function(h,o,t,j,a,r){
+        h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+        h._hjSettings={hjid:1913961,hjsv:6};
+        a=o.getElementsByTagName('head')[0];
+        r=o.createElement('script');r.async=1;
+        r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+        a.appendChild(r);
+    })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+</script>
+-->
+
+	
+	
+	<style>
+		[v-cloak] {
+		display: none;
+		}
+		
+		.unsupported-browser {
+			display: none;
+			width: 100%;
+			height: 150px;
+			margin: 20px 10px;
+			padding: 10px;
+			background-color: #f1f15f;
+			color: black;
+		}
+	</style>
+	
+	
+<script>
+function isIE() {
+    // IE 10 and IE 11
+    return /Trident\/|MSIE/.test(window.navigator.userAgent);
+}
+var showBrowserAlert = (function () {
+    if (document.querySelector('.unsupported-browser')) {
+        var d = document.getElementsByClassName('unsupported-browser');
+
+        
+        if (isIE()) {
+            //d[0].innerHTML = '<b>Unsupported Browser!</b> This website will offer limited functionality in this browser. We only support the recent versions of major browsers like Chrome, Firefox, Safari, and Edge.';
+            d[0].style.display = 'block';
+        }
+    }
+});
+
+document.addEventListener('DOMContentLoaded', showBrowserAlert);
+</script>
+	
+</head>
+<body>
+
+<div class="tooltip help up">
+	<div class="contents">
+		<div>tooltip goes here!</div>
+	</div>
+</div>
+<div class="tooltip data up">
+	<div class="contents">
+		<div>tooltip goes here!</div>
+	</div>
+</div>
+
+
+<div class="unsupported-browser">
+	<h3>Unsupported Browser</h3>
+	<p>
+		Unfortunately we do not support your current browser. We support the recent versions of major browsers include Chrome, Firefox, Safari, and Edge. 
+	</p>
+	<p>
+		To open in an alternative browser, please copy the following address: https://www.visualcrossing.com/weather/weather-data-services
+	</p>
+
+</div>
+	
+
+<div v-cloak id="app" class="app">
+	<confirmation-dialog v-if="confirmConfig" class="confirmationDialog" v-bind:config="confirmConfig"></confirmation-dialog>
+	<div class="flex-vertical header fadedbckgnd"  v-if="sessionId" >
+		<h3 class="hideh900">{{title}}</h3>
+		<div class="flex-horizontal" >
+			<!--<button class="button secondary small"   v-if="canGoBack()" v-on:click="onback">Back</button>-->
+			<div class="push">&nbsp;</div>
+			<!--<select v-model="currentUnitGroup" class="chooser" v-on:change="modifyUnitGroup($event)">
+				<option v-for="u in unitGroups" v-bind:value="u.id">
+				  {{ u.label }}
+				</option>
+			</select>-->
+			<div v-if="accountMessage && !isAccountPage" class="link accountmessage marginright" v-on:click="onaccountdetails">{{accountMessage}}</div>
+			<div class="link marginright" v-if="allowEarnCredits" v-on:click="onearncredits">Earn free data credits</div>
+			<button class="button secondary small" v-on:click="onGoHome">Home</button>
+			<button v-if="showBulk" class="button secondary small" v-on:click="onbulkdetails">Bulk</button>
+			<button class="button secondary small" v-on:click="onaccountdetails">Account</button>
+			<button class="button secondary small" v-on:click="onopenhelp">Help</button>
+			<button class="button secondary small" v-on:click="onsignout">Log out</button>
+		</div>
+	</div>
+	<div v-if="error.title" class="error-display">
+		<span class="close" @click="onErrorClose">&times;</span>
+		<h3 slot="header">{{error.title}}</h3>
+		<div slot="body">{{error.msg}}</div>
+	</div>
+	<div v-if="message.title" class="msg-display">
+		<span class="close" @click="onMsgClose">&times;</span>
+		<h3 slot="header">{{message.title}}</h3>
+		<div slot="body">{{message.msg}}</div>
+	</div>
+	<router-view v-on:sign-up="onsignup" v-on:back="onback"
+		 v-on:route-controller="routeController()" v-on:reset-password="onresetpassword"
+		 v-on:populate-data="populateData" v-on:locations-changed="locationsChanged" 
+		 v-on:set-view="setView" v-on:datasource-added="datasourceAdded" v-on:show-msg="showMsg" v-on:show-error="showError"></router-view>
+	
+	<div class="footer flex-horizontal smallheader fadedbckgnd" >
+            Copyright &copy; 2021  Visual Crossing Corp. &nbsp;&nbsp;
+			<span class="copyright-links"><a href="/privacy" target="_blank">Privacy Policy</a></span>
+			&nbsp;/&nbsp;
+			<span class="copyright-links"><a href="/weather-services-terms" target="_blank">Terms &amp; Conditions</a></span>
+			&nbsp;/&nbsp;
+			<span class="copyright-links"><a href="mailto:info@visualcrossing.com?subject=Information about Weather Data Services" target="_blank">Contact us</a></span>
+
+    </div>
+
+</div>
+
+<script src="./weatherdataservices/weatherdataservices.js?v=5.57" type="text/javascript"></script>
+
+<script>
+	vcController.startup("https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/",
+                    "prod_EoSlQDjNxZJA0o",
+                    "WeatherDataServices",
+                    store.locale,
+					"Weather Data Services",
+					"Weather forecast & historical weather data for viewing, download & Weather API query building", //<a href='https://www.visualcrossing.com/weather-data' title='Visual Crossing Weather Data'>More info</a>
+					"pk_live_4nUTPRcrDEg1t2OLcfsXmyKQ");
+</script>
+<!-- Start of visualcrossing Zendesk Widget script -->
+<script id="ze-snippet" src="https://static.zdassets.com/ekr/snippet.js?key=43af628d-4037-406b-9bba-06a857a29c96"> </script>
+<!-- End of visualcrossing Zendesk Widget script -->
+	
+	
+</body>
+</html>
